@@ -51,12 +51,10 @@ Combined with lexical features: comp_med, pct_lixo, pct_nav, pct_cod.
     -r, --rejeitados    Save rejected docs (optional)
         --relatorio     Save JSON report (optional)
     -s, --sensibilidade Sensitivity 0.0-1.0 (default: 0.5)
-    -j, --janela        FXL Turbo window size (default: 10)
         --threads       Parallel threads (default: all CPUs)
         --max-docs      Limit documents (0 = all)
         --codigo        Source code mode
         --demo          Built-in demo
-    -v, --verbose       Per-document scores
 
 Sensitivity presets:
     -s 0.2  permissive  ~10% rejected
@@ -72,7 +70,7 @@ Classifier experiment (2000 docs, self-supervised labels from FXL Turbo):
     Unseen documents     : 100.0% (10/10)
     Model size           : 267KB
 
-Throughput on modern CPU (8 threads):
+Throughput (8 threads, modern CPU):
 
     10k docs  -> 2s
     100k docs -> 20s
@@ -81,41 +79,28 @@ Throughput on modern CPU (8 threads):
 
 ## Architecture
 
-    Raw Dataset (web scraping)
+    Raw Dataset
           |
           v
     Layer 1: Lexical Features
-      comp_med  - sentence length (nav menus are short)
-      pct_lixo  - spam word percentage
-      pct_nav   - navigation word percentage
-      pct_cod   - code tokens in prose
+      comp_med, pct_lixo, pct_nav, pct_cod
           |
           v
-    Layer 2: FXL Turbo (original algorithm)
+    Layer 2: FXL Turbo
       ctx(t) = mean(1 - |sim(t) - sim(t-i)|)
-      Detects abrupt topic changes in document
+      Detects abrupt topic changes
           |
       ---------
       |       |
-    Clean   Rejected + reason (JSON report)
-
-## Python Experiments
-
-    cd experiments
-    pip install scikit-learn matplotlib
-    python classifier.py      # auto-trained classifier (100% accuracy)
-    python health_chart.py    # dataset health visualization
-    python benchmark_gpt2.py  # GPT-2 benchmark (needs torch + GPU)
+    Clean   Rejected + reason
 
 ## Open Benchmark - GPU Help Wanted
 
-The missing experiment: train GPT-2 small on TinyStories raw vs sanitized.
+Missing experiment: GPT-2 small on TinyStories raw vs sanitized.
 If you have a GPU:
 
     pip install transformers datasets torch
     python experiments/benchmark_gpt2.py --docs 50000
-
-See CONTRIBUTING.md. Results welcome in Issues.
 
 ## Citation
 
@@ -123,8 +108,7 @@ See CONTRIBUTING.md. Results welcome in Issues.
       title  = {Terra Dourada: Self-Supervised LLM Dataset Sanitizer},
       author = {Armando, Recife, Brazil},
       year   = {2026},
-      url    = {https://github.com/armanfm/llm-dataset-sanitizer},
-      note   = {FXL Turbo temporal context rupture. No GPU, no human labels.}
+      url    = {https://github.com/armanfm/llm-dataset-sanitizer}
     }
 
 ## License
