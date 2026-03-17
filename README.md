@@ -1,5 +1,6 @@
 # Terra Dourada — LLM Dataset Sanitizer
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/1cb359e3-b28f-4eb3-ba4b-5e08bb797ca5" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/a8d87a03-5696-4a9f-9203-54f9ca71ec54" />
+
 
 Detect and remove web scraping garbage from LLM training datasets.
 No GPU. No neural model. No human labels. Pure Rust.
